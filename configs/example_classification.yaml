@@ -1,0 +1,24 @@
+task:
+  name: brightness_classifier
+  task_type: classification
+  model:
+    adapter: dummy
+    model_path: null
+  params:
+    classes: ["bright", "dark"]
+    threshold: 0.60
+    event_label: "bright"
+    event_threshold: 0.75
+
+logic:
+  filters:
+    - type: threshold
+      score_key: score
+      min_score: 0.60
+  events:
+    - type: label_match
+      target_label: bright
+      min_score: 0.75
+
+runtime:
+  source: synthetic_frames
